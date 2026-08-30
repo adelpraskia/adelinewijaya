@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8">
+        <title>About Delynn</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Playfair+Display:wght@700;800&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            html {
+                scroll-behavior: smooth;
+            }
+
+            /* KUNCI UTAMA: bikin halaman "nempel" ke tiap section pas discroll */
+            body {
+                font-family: 'Poppins', sans-serif;
+                height: 100vh;
+                overflow-y: scroll;
+                scroll-snap-type: y mandatory;
+            }
+
+            section {
+                scroll-snap-align: start;
+                min-height: 100vh;
+            }
+
+            /* Navbar */
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                gap: 40px;
+                background-color: rgba(255, 255, 255, 0.95);
+                padding: 20px 60px;
+                z-index: 10;
+            }
+
+            nav a {
+                text-decoration: none;
+                color: #333;
+                font-size: 16px;
+                font-weight: 600;
+                letter-spacing: 1px;
+                padding-bottom: 4px;
+                border-bottom: 2px solid transparent;
+                transition: color 0.3s ease, border-color 0.3s ease;
+            }
+
+            nav a:hover {
+                color: #b67dc5;
+            }
+
+            nav a.active {
+                color: #b67dc5;
+                border-bottom: 2px solid #b67dc5;
+            }
+
+            /* Section 1: Hero / About Delynn */
+            .hero {
+                position: relative;
+                background-image: url("delynnui.jpg");
+                background-size: cover;
+                background-position: top center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .hero::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(120deg, rgba(182, 125, 197, 0.75), rgba(240, 190, 160, 0.55));
+            }
+
+            .hero-content {
+                position: relative;
+                z-index: 1;
+                padding: 0 80px;
+                max-width: 800px;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-family: 'Baloo 2', sans-serif;
+                font-weight: 800;
+                font-size: 100px;
+                line-height: 1.1;
+                color: #ffffff;
+                text-transform: uppercase;
+            }
+
+            .hero-content p {
+                margin-top: 25px;
+                font-size: 24px;
+                color: #ffffff;
+            }
+
+            /* Section 2: Profile */
+            .profile {
+                background: linear-gradient(120deg, #b67dc5, #f0be9f);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 60px;
+                padding: 60px 80px;
+            }
+
+            .profile-text {
+                flex: 1;
+                color: #ffffff;
+            }
+
+            .profile-text h1 {
+                font-family: 'Playfair Display', serif;
+                font-weight: 800;
+                font-size: 44px;
+                line-height: 1.2;
+                margin-bottom: 25px;
+            }
+
+            .profile-text p {
+                font-size: 18px;
+                line-height: 1.6;
+                margin-bottom: 20px;
+                max-width: 480px;
+            }
+
+            .polaroid {
+                background-color: #ffffff;
+                padding: 15px 15px 20px 15px;
+                border-radius: 4px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+                width: 340px;
+            }
+
+            .polaroid img {
+                width: 100%;
+                display: block;
+                border-radius: 2px;
+            }
+
+            .polaroid-caption {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 12px;
+                font-size: 14px;
+                color: #7a4f9c;
+                font-weight: 600;
+            }
+        </style>
+    </head>
+    <body>
+
+        <nav>
+            <a href="#home" class="active" data-section="home">HOME</a>
+            <a href="#profile" data-section="profile">PROFILE</a>
+        </nav>
+
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h1>About<br>Delynn</h1>
+                <p>-Kenali lebih dekat Delynn JKT48-</p>
+            </div>
+        </section>
+
+        <section class="profile" id="profile">
+            <div class="profile-text">
+                <h1>Adeline Wijaya</h1>
+                <p>Lahir 1 September 2007, Delynn menyeimbangkan disiplin dance dan vokal. Geraknya bersih, senyumnya ramah, dan kehadirannya sering jadi mood booster.</p>
+                <p>Jikoshoukainya "Nyemangatin dan nganenin, siapa yang kamu pikirin? Delynn. Pyong Pyong aku Delynn"</p>
+            </div>
+
+            <div class="polaroid">
+                <img src="delynnui.jpg" alt="Delynn JKT48">
+                <div class="polaroid-caption">
+                    <span>Delynn (デリンヌ)</span>
+                    <span>Generasi 12 JKT48</span>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.dataset.section === id);
+                        });
+                    }
+                });
+            }, { threshold: 0.6 });
+
+            sections.forEach(section => observer.observe(section));
+        </script>
+    </body>
+</html>
